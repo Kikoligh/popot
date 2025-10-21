@@ -214,7 +214,7 @@ jobs:
           # Creer sitecustomize.py si non telecharge (version corrigee sans shebang)
           if (-not (Test-Path "$trackingPath\sitecustomize.py")) {
               Write-Host "Creating sitecustomize.py..."
-              @"
+              $sitecustomizeContent = @'
 try:
     import sys
     import os
@@ -224,7 +224,8 @@ try:
     import auto_tracker_wrapper
 except:
     pass
-"@ | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -NoNewline
+'@
+              $sitecustomizeContent | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -NoNewline
               Write-Host "sitecustomize.py created"
           }
           
