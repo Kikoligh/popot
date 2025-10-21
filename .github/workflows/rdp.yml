@@ -214,18 +214,15 @@ jobs:
           # Creer sitecustomize.py si non telecharge (version corrigee sans shebang)
           if (-not (Test-Path "$trackingPath\sitecustomize.py")) {
               Write-Host "Creating sitecustomize.py..."
-              $sitecustomizeContent = @'
-try:
-    import sys
-    import os
-    tracking_path = r"D:\Script\RDP-Scripts"
-    if os.path.exists(tracking_path) and tracking_path not in sys.path:
-        sys.path.insert(0, tracking_path)
-    import auto_tracker_wrapper
-except:
-    pass
-'@
-              $sitecustomizeContent | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -NoNewline
+              "try:" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII
+              "    import sys" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "    import os" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              '    tracking_path = r"D:\Script\RDP-Scripts"' | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "    if os.path.exists(tracking_path) and tracking_path not in sys.path:" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "        sys.path.insert(0, tracking_path)" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "    import auto_tracker_wrapper" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "except:" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
+              "    pass" | Out-File -FilePath "$trackingPath\sitecustomize.py" -Encoding ASCII -Append
               Write-Host "sitecustomize.py created"
           }
           
